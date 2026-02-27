@@ -5,9 +5,9 @@ import {
 	TRIGGER_ID,
 } from "@rocketman-system/streamkit-widget-helper";
 
-const battaryIcon = require("./media/battary.svg").default;
+const image = require("./media/Black.svg").default;
 
-const audio = new Audio(require("./media/camera.mp3").default);
+const audio = new Audio(require("./media/Black.mp3").default);
 
 export const App = React.memo(() => {
 	const [loaded, setLoaded] = React.useState(false);
@@ -47,19 +47,11 @@ export const App = React.memo(() => {
 		audio.volume = data.volume / 100;
 
 		audio.onended = () => {
-			audio.currentTime = 8.13;
+			audio.currentTime = 0;
 			audio.play();
 		};
 
-		const int = setInterval(() => {
-			if (audio.currentTime >= 16.0) {
-				audio.currentTime = 8.13;
-				audio.play();
-			}
-		}, 100);
-
 		return () => {
-			clearInterval(int);
 			audio.pause();
 		};
 	}, [loaded, data]);
@@ -67,49 +59,9 @@ export const App = React.memo(() => {
 	if (!loaded) return <></>;
 
 	return (
-		<div className="effectMain">
-			<div className="camera">
-				<div className="top">
-					<div>
-						<div className="circle" /> REC
-					</div>
-					<div></div>
-					<div>
-						LOW BATTERY <img src={battaryIcon} className={"batteryIcon"} />
-					</div>
-				</div>
-				<div>
-					<div></div>
-					<div>
-						<div className="overlay">
-							<div className="overlay-element top-left"></div>
-							<div className="overlay-element top-right"></div>
-							<div className="overlay-element bottom-left"></div>
-							<div className="overlay-element bottom-right"></div>
-						</div>
-					</div>
-					<div></div>
-				</div>
-				<div>
-					<div>
-						ISO 100
-						{data?.name && (
-							<>
-								<br />
-								{data.name}
-							</>
-						)}
-					</div>
-					<div></div>
-					<div>
-						{Math.floor((window.innerHeight + window.innerWidth) / 100)} Mbps
-						<br />
-						{window.innerHeight}x{window.innerWidth}
-						<br />
-						FPS 60
-					</div>
-				</div>
-			</div>
-		</div>
+		<>
+			<img className={`eye`} src={image} />
+			<div className={`eye2`} />
+		</>
 	);
 });
